@@ -11,8 +11,7 @@ provide a way for small teams to manage their issues easily, without having to l
  you can view and manage them even while offline.
  - **Lightweight** - mini-task was intended to be light and fast from the very start.
  It offers only the basic functions needed to manage issues. But if you want something more...
- - **Extensible** - to counter its simplicity, mini-task is designed to be vastly
- extensible
+ - **Extensible** - to counter its simplicity, mini-task is designed to be extensible
 
 ## Setup
 
