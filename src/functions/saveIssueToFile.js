@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import deleteFile from './deleteFile.js';
 
 
 /**
@@ -21,7 +22,7 @@ const saveIssueToFile = (_path, issue) => {
     console.log(newPath);
 
     if(prevPath && (prevPath !== newPath)) {
-        fs.rmSync(prevPath);
+        deleteFile(prevPath);
     }
 
     //String to be written to file

@@ -3,6 +3,7 @@ import * as init from './init.js'
 import * as view from './view.js';
 import * as list from './list.js';
 import * as update from './update.js';
+import * as _delete from './delete.js';
 
 /**
  * Handlers for commands
@@ -20,7 +21,8 @@ const commands = [
     init,
     view,
     list,
-    update
+    update,
+    _delete
 ]
 
 export default commands

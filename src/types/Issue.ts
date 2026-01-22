@@ -15,7 +15,12 @@ export type IssueStatus = {
 export type Issue = {
     name: string,
     description?: string,
-    metadata: IssueMetadata
+    metadata: IssueMetadata,
+    local: IssueLocalData
+}
+
+export type IssueLocalData = {
+    path: string // Path to issue file
 }
 
 export type IssueMetadata = {
