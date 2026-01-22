@@ -14,6 +14,16 @@ import path from 'path';
  */
 const saveIssueToFile = (_path, issue) => {
 
+    const newPath = path.join(_path, issue.metadata.id + '.md');
+    const prevPath = issue.local.path;
+
+    console.log(prevPath);
+    console.log(newPath);
+
+    if(prevPath !== newPath) {
+        fs.rmSync(prevPath);
+    }
+
     //String to be written to file
     let output_str = '---\n\n'
 
@@ -28,7 +38,14 @@ const saveIssueToFile = (_path, issue) => {
     output_str += '# ' + issue.name + '\n\n'
 
     //Add description
-    output_str += issue.description || ''
+    output_str += issue.description || '';
+
+    /**
+     * Create folder if doesn't exist
+     */
+    if(!fs.existsSync(_path)) {
+        fs.mkdirSync(_path);
+    }
 
     fs.writeFileSync(path.join(_path, issue.metadata.id + '.md'), output_str)
 }

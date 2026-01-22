@@ -7,6 +7,7 @@ import yamlFront from 'yaml-front-matter';
 
 import Logger from './Logger.js';
 import customPathOrDefault from './customPathOrDefault.js';
+import tell from '../../common/utils/tell.js';
 
 const logger = new Logger(true, 'Log');
 
@@ -24,7 +25,19 @@ export default function getIssueFromFile(filename, custom_dir) {
 
     let target_path = customPathOrDefault(custom_dir);    
     
-    const issue_str = fs.readFileSync(path.join(target_path, filename), { encoding: 'utf-8'});
+    let fullPath = path.join(target_path, filename);
+    const foundFile = fs.existsSync(fullPath);
+
+    if(!foundFile) {
+        fullPath = path.join(target_path, 'done', filename);
+        const foundFileInDone = fs.existsSync(fullPath);
+        if(!foundFileInDone) {
+            throw 'Could not find issue ' + filename;
+        }
+    }
+    
+
+    const issue_str = fs.readFileSync(fullPath, { encoding: 'utf-8'});
 
     /**
      * @type { object }
@@ -42,7 +55,10 @@ export default function getIssueFromFile(filename, custom_dir) {
         metadata: {
             id: issue_raw_json.id,
             priority: issue_raw_json.priority,
-            status: issue_raw_json.status
+            status: issue_raw_json.status,
+        },
+        local: {
+            path: fullPath
         }
     };
 

@@ -13,16 +13,38 @@ export const command = 'update <selector>';
 
 export const builder = {
     status: {
-        default: undefined
+        default: undefined,
+        type: 'string'
     }
 }
 
+/**
+ * Issue status update to/from done:
+ * * Move to /issues/done folder and remove from /issues folder
+ * * When updating from done, move to /issues folder and remove from /done folder
+ * @param {*} argv 
+ */
+
 export const handler = async (argv) => {
     const issueFilename = getIssueFilename(argv.selector);
-    const issue = getIssueFromFile(issueFilename);
+    const prevIssue = getIssueFromFile(issueFilename);
+    const issue = { ...prevIssue };
+    // console.log(argv);
     issue.metadata.status = argv.status || issue.metadata.status;
 
-    const issuePath = customPathOrDefault();
+    console.log(issue.metadata);
+
+    /**
+     * If issue status changed to 'done',
+     * move issue to the /done folder
+     */
+    const moveToDone = 
+        prevIssue.metadata.status !== 'done' && 
+        issue.metadata.status === 'done';
+
+    const issuePath = customPathOrDefault() + (issue.metadata.status === 'done' ? "/done" : "");
+
+    // console.log(issuePath);
 
     saveIssueToFile(issuePath, issue);
     tell('Issue saved');
