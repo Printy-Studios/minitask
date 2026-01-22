@@ -15,12 +15,12 @@ import path from 'path';
 const saveIssueToFile = (_path, issue) => {
 
     const newPath = path.join(_path, issue.metadata.id + '.md');
-    const prevPath = issue.local.path;
+    const prevPath = issue?.local?.path;
 
     console.log(prevPath);
     console.log(newPath);
 
-    if(prevPath !== newPath) {
+    if(prevPath && (prevPath !== newPath)) {
         fs.rmSync(prevPath);
     }
 
