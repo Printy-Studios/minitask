@@ -4,7 +4,7 @@
 import printIssue from '#functions/printIssue.js'
 import plugins from '#functions/plugins.js'
 import getIssueFromFile from '#functions/getIssueFromFile.js'
-
+import getIssueFilename from '../functions/getIssueFilename.js';
 import tell from '../../common/utils/tell.js';
 
 /**
@@ -27,9 +27,9 @@ export const handler = async (argv) => {
 
     //plugins.loadConstants #TODO
 
-    const issue_file_ext = '.md'//plugins.constants.issue_file_ext #TODO
+    const issueFilename = getIssueFilename(argv.selector);
 
-    const issue = await getIssueFromFile(argv.selector + issue_file_ext) //Update to be able to use selectors other than ID
+    const issue = await getIssueFromFile(issueFilename) //Update to be able to use selectors other than ID
 
     /**
      * @type { IssueRenderers }

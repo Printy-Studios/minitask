@@ -19,9 +19,6 @@ export const builder = {
 }
 
 /**
- * Issue status update to/from done:
- * * Move to /issues/done folder and remove from /issues folder
- * * When updating from done, move to /issues folder and remove from /done folder
  * @param {*} argv 
  */
 

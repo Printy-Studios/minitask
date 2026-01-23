@@ -14,15 +14,23 @@ import config, { loadConfig } from '#constants/config.js';
 import commands from '#bin_handlers/index.js';
 
 // Initialize plugins
-await loadConfig();
-await plugins.init(/** @type { MinitaskConfig } */(config));
-await plugins.loadModules();
+const init = async () => {
+    await loadConfig();
+    await plugins.init(/** @type { MinitaskConfig } */(config));
+    await plugins.loadModules();
+}
+
+const start = async () => {
+    await init();
+    const args = yargs(hideBin(process.argv))
+        .strict()
+        .command(commands)//addCommands(yargs, commands).argv
+        .parse();
+}
+
+start();
 
 
-const args = yargs(hideBin(process.argv))
-    .strict()
-    .command(commands)//addCommands(yargs, commands).argv
-    .parse();
 
 
     
