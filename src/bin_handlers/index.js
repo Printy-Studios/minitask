@@ -4,6 +4,7 @@ import * as view from './view.js';
 import * as list from './list.js';
 import * as update from './update.js';
 import * as _delete from './delete.js';
+import * as branch from './branch.js';
 
 /**
  * Handlers for commands
@@ -22,7 +23,8 @@ const commands = [
     view,
     list,
     update,
-    _delete
+    _delete,
+    branch
 ]
 
 export default commands
